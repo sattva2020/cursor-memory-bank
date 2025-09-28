@@ -130,6 +130,42 @@ Note: other documents are not necessary for memory bank operation, they are expl
 
 **This is the most critical and challenging part of the setup.** You'll need to manually create six custom modes in Cursor and copy the instruction content from the provided files:
 
+### Option A: Import all modes from JSON (Cursor v0.48+)
+
+The repository now ships with a generator that builds an importable manifest for every Memory Bank mode. This is the fastest way to bootstrap a clean Cursor installation.
+
+#### Requirements
+
+- Python 3.10 or newer (the standard Python runtime bundled with macOS/Linux works fine)
+- Cursor Desktop v0.48 or newer with the **Custom modes** feature enabled
+- The Markdown instruction files from this repository (`custom_modes/*.md`)
+
+#### Generate the manifest
+
+```bash
+python scripts/build_cursor_modes.py --pretty
+```
+
+The command writes `custom_modes/memory_bank_modes.json`. The `--pretty` flag makes the JSON easier to inspect; omit it for a compact export. You can re-run the command any time you update the Markdown instructions.
+
+#### Import into Cursor
+
+1. Open Cursor → **Settings** → **Features** → **Chat** → **Custom modes**
+2. Click **Import from file** (bottom right) and select `custom_modes/memory_bank_modes.json`
+3. Confirm the import dialog; Cursor will add all Memory Bank modes with the configured tool sets, shortcuts, and trigger words
+
+#### Verify the result
+
+- Open the chat mode switcher and ensure the following modes are present: 🔍 VAN, 📋 PLAN, 🎨 CREATIVE, ⚒️ IMPLEMENT, and 🧭 REFLECT / ARCHIVE
+- Switch to each mode and type its trigger word (e.g., `VAN`). Cursor should load the long-form instructions from the corresponding Markdown file
+- If you previously created the modes manually, delete duplicates—the importer adds fresh entries instead of mutating existing ones
+
+#### Caveats to watch for on a clean Cursor profile
+
+- Cursor may retain previously selected icons and colours; if the importer assigns defaults you can adjust them manually after import
+- Shortcuts that conflict with system-wide bindings can be rejected silently—Cursor keeps the mode but omits the shortcut
+- Import fails on versions prior to v0.48 because the **Import from file** button is not exposed; upgrade Cursor if the option is missing
+
 #### How to Add a Custom Mode in Cursor
 
 1. Open Cursor and click on the mode selector in the chat panel
