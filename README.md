@@ -288,6 +288,7 @@ The Memory Bank system is actively being developed and improved. Key points to u
 - [Memory Bank Upgrade Guide](memory_bank_upgrade_guide.md)
 - [CREATIVE Mode and Claude's "Think" Tool](creative_mode_think_tool.md)
 - Mode-specific instruction files in the `custom_modes/` directory
+- Licensed under the [MIT License](LICENSE)
 
 ---
 
