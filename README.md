@@ -234,7 +234,7 @@ For each mode, configure as follows (If MCPs are showing, you can keep them on, 
 
 <img src="assets/implement_mode_1.png" height="300"/> <img src="assets/implement_mode_2.png" height="300" style="display: inline-block;"/>
 
-5. **REFLECT & ARHIVE MODE** (Review)
+5. **REFLECT & ARCHIVE MODE** (Review)
    - **Name**: 🔍 REFLECT or ARCHIVE
    - **Tools**: Enable "Codebase Search", "Read File", "Terminal", "List Directory"
    - **Advanced options**: Paste from `custom_modes/reflect_archive_instructions.md`
