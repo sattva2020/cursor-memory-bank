@@ -23,9 +23,10 @@ graph TD
     %% Level 2 Planning
     Level2 --> L2Review["Review Code<br>Structure"]
     L2Review --> L2Document["Document<br>Planned Changes"]
-    L2Document --> L2Challenges["Identify<br>Challenges"]
+    L2Document --> L2PlanDoc["Update<br>implementation-plan.md"]
+    L2PlanDoc --> L2Challenges["Identify<br>Challenges"]
     L2Challenges --> L2Checklist["Create Task<br>Checklist"]
-    L2Checklist --> L2Update["Update tasks.md<br>with Plan"]
+    L2Checklist --> L2Update["Sync Summary<br>into tasks.md"]
     L2Update --> L2Tech["TECHNOLOGY<br>VALIDATION"]
     L2Tech --> L2Verify["Verify Plan<br>Completeness"]
     
@@ -34,8 +35,9 @@ graph TD
     L3Review --> L3Requirements["Document Detailed<br>Requirements"]
     L3Requirements --> L3Components["Identify Affected<br>Components"]
     L3Components --> L3Plan["Create Comprehensive<br>Implementation Plan"]
-    L3Plan --> L3Challenges["Document Challenges<br>& Solutions"]
-    L3Challenges --> L3Update["Update tasks.md<br>with Plan"]
+    L3Plan --> L3PlanDoc["Maintain<br>implementation-plan.md"]
+    L3PlanDoc --> L3Challenges["Document Challenges<br>& Solutions"]
+    L3Challenges --> L3Update["Sync Summary<br>into tasks.md"]
     L3Update --> L3Tech["TECHNOLOGY<br>VALIDATION"]
     L3Tech --> L3Flag["Flag Components<br>Requiring Creative"]
     L3Flag --> L3Verify["Verify Plan<br>Completeness"]
@@ -47,7 +49,8 @@ graph TD
     L4Diagrams --> L4Subsystems["Identify Affected<br>Subsystems"]
     L4Subsystems --> L4Dependencies["Document Dependencies<br>& Integration Points"]
     L4Dependencies --> L4Plan["Create Phased<br>Implementation Plan"]
-    L4Plan --> L4Update["Update tasks.md<br>with Plan"]
+    L4Plan --> L4PlanDoc["Maintain<br>implementation-plan.md"]
+    L4PlanDoc --> L4Update["Sync Summary<br>into tasks.md"]
     L4Update --> L4Tech["TECHNOLOGY<br>VALIDATION"]
     L4Tech --> L4Flag["Flag Components<br>Requiring Creative"]
     L4Flag --> L4Verify["Verify Plan<br>Completeness"]
@@ -142,12 +145,15 @@ Before planning can begin, verify the file state:
 ```mermaid
 graph TD
     Start["File State<br>Verification"] --> CheckTasks{"tasks.md<br>initialized?"}
-    
+
     CheckTasks -->|"No"| ErrorTasks["ERROR:<br>Return to VAN Mode"]
     CheckTasks -->|"Yes"| CheckActive{"activeContext.md<br>exists?"}
-    
+
     CheckActive -->|"No"| ErrorActive["ERROR:<br>Return to VAN Mode"]
-    CheckActive -->|"Yes"| ReadyPlan["Ready for<br>Planning"]
+    CheckActive -->|"Yes"| CheckPlan{"implementation-plan.md<br>present?"}
+
+    CheckPlan -->|"No"| CreatePlan["Create file during<br>planning Step 5"]
+    CheckPlan -->|"Yes"| ReadyPlan["Ready for<br>Planning"]
 ```
 
 ## 📝 TASKS.MD UPDATE FORMAT
@@ -190,6 +196,9 @@ Type: [Enhancement/Feature/Complex System]
 2. [Step 2]
    - [Subtask 2.1]
    - [Subtask 2.2]
+
+## Reference Documents
+- Detailed plan: implementation-plan.md (keep timestamps/notes aligned)
 
 ## Creative Phases Required
 - [ ] [Component 1] Design
@@ -253,6 +262,7 @@ graph TD
 - Dependencies documented? [YES/NO]
 - Challenges & mitigations addressed? [YES/NO]
 - Creative phases identified (Level 3-4)? [YES/NO/NA]
+- implementation-plan.md updated and referenced? [YES/NO]
 - tasks.md updated with plan? [YES/NO]
 
 → If all YES: Planning complete - ready for next mode
@@ -270,6 +280,7 @@ When planning is complete, notify user with:
 ✅ Technology stack validated
 ✅ tasks.md updated with plan
 ✅ Challenges and mitigations documented
+[✅ implementation-plan.md linked in tasks.md]
 [✅ Creative phases identified (for Level 3-4)]
 
 → NEXT RECOMMENDED MODE: [CREATIVE/IMPLEMENT] MODE 

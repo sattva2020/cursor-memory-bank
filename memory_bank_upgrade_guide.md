@@ -322,7 +322,7 @@ QA - Validate technical implementation
 ### Example Workflow
 
 1. Begin with `VAN` to initialize the project and determine complexity
-2. For Level 2-4 tasks, transition to `PLAN` to create a comprehensive implementation plan
+2. For Level 2-4 tasks, transition to `PLAN` to create a comprehensive implementation plan and commit it to `implementation-plan.md`
 3. For components requiring design decisions, use `CREATIVE` to explore options
 4. Implement the planned changes with `IMPLEMENT`
 5. Validate the implementation with `QA` before completing
@@ -367,25 +367,27 @@ graph TD
 
 ### Memory Bank Continuity
 
-While the rules are modularized, the Memory Bank files maintain continuity across modes:
+While the rules are modularized, the Memory Bank files maintain continuity across modes. PLAN mode now owns `implementation-plan.md`, and downstream modes expect it to exist before they load contextual rules:
 
 ```mermaid
 graph LR
     subgraph "Memory Bank Files"
         Tasks["tasks.md<br>Source of Truth"]
         Active["activeContext.md<br>Current Focus"]
+        PlanDoc["implementation-plan.md<br>Canonical Plan"]
         Progress["progress.md<br>Implementation Status"]
         Creative["creative-*.md<br>Design Decisions"]
     end
-    
+
     VAN["VAN MODE"] -.-> Tasks & Active
-    PLAN["PLAN MODE"] -.-> Tasks & Active
-    CREATIVE["CREATIVE MODE"] -.-> Tasks & Creative
-    IMPLEMENT["IMPLEMENT MODE"] -.-> Tasks & Progress
+    PLAN["PLAN MODE"] -.-> Tasks & Active & PlanDoc
+    CREATIVE["CREATIVE MODE"] -.-> Tasks & Creative & PlanDoc
+    IMPLEMENT["IMPLEMENT MODE"] -.-> Tasks & Progress & PlanDoc
     QA["QA MODE"] -.-> Tasks & Progress
-    
+
     style Tasks fill:#f9d77e,stroke:#d9b95c,stroke-width:3px,color:black
     style Active fill:#a8d5ff,stroke:#88b5e0,color:black
+    style PlanDoc fill:#ffe4b5,stroke:#e6b577,color:black
     style Progress fill:#c5e8b7,stroke:#a5c897
     style Creative fill:#f4b8c4,stroke:#d498a4,color:black
     
@@ -401,7 +403,7 @@ graph LR
 Here's how I used the new system to develop a complex Todo application:
 
 1. **VAN Mode**: Analyzed requirements, set up project structure, determined Level 3 complexity
-2. **PLAN Mode**: Created comprehensive component hierarchy, identified dependencies, flagged components for creative exploration
+2. **PLAN Mode**: Created comprehensive component hierarchy, identified dependencies, and recorded the full plan in `implementation-plan.md` while flagging components for creative exploration
 3. **CREATIVE Mode**: Explored multiple options for state management and filtering implementation, documented pros/cons
 4. **IMPLEMENT Mode**: Built components in logical sequence following the plan, with integrated QA validation
 5. **Results**: More disciplined development process, better documentation, and higher quality final product

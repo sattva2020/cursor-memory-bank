@@ -15,9 +15,10 @@ graph TD
     %% Level 2 Planning
     Level2 --> L2Review["🔍 Review Code<br>Structure"]
     L2Review --> L2Document["📄 Document<br>Planned Changes"]
-    L2Document --> L2Challenges["⚠️ Identify<br>Challenges"]
+    L2Document --> L2PlanFile["🗂️ Update<br>implementation-plan.md"]
+    L2PlanFile --> L2Challenges["⚠️ Identify<br>Challenges"]
     L2Challenges --> L2Checklist["✅ Create Task<br>Checklist"]
-    L2Checklist --> L2Update["📝 Update tasks.md<br>with Plan"]
+    L2Checklist --> L2Update["📝 Sync Summary<br>into tasks.md"]
     L2Update --> L2Verify["✓ Verify Plan<br>Completeness"]
     
     %% Level 3 Planning
@@ -25,8 +26,9 @@ graph TD
     L3Review --> L3Requirements["📋 Document Detailed<br>Requirements"]
     L3Requirements --> L3Components["🧩 Identify Affected<br>Components"]
     L3Components --> L3Plan["📝 Create Comprehensive<br>Implementation Plan"]
-    L3Plan --> L3Challenges["⚠️ Document Challenges<br>& Solutions"]
-    L3Challenges --> L3Update["📝 Update tasks.md<br>with Plan"]
+    L3Plan --> L3PlanFile["🗂️ Maintain<br>implementation-plan.md"]
+    L3PlanFile --> L3Challenges["⚠️ Document Challenges<br>& Solutions"]
+    L3Challenges --> L3Update["📝 Sync Summary<br>into tasks.md"]
     L3Update --> L3Flag["🎨 Flag Components<br>Requiring Creative"]
     L3Flag --> L3Verify["✓ Verify Plan<br>Completeness"]
     
@@ -37,7 +39,8 @@ graph TD
     L4Diagrams --> L4Subsystems["🧩 Identify Affected<br>Subsystems"]
     L4Subsystems --> L4Dependencies["🔄 Document Dependencies<br>& Integration Points"]
     L4Dependencies --> L4Plan["📝 Create Phased<br>Implementation Plan"]
-    L4Plan --> L4Update["📝 Update tasks.md<br>with Plan"]
+    L4Plan --> L4PlanFile["🗂️ Maintain<br>implementation-plan.md"]
+    L4PlanFile --> L4Update["📝 Sync Summary<br>into tasks.md"]
     L4Update --> L4Flag["🎨 Flag Components<br>Requiring Creative"]
     L4Flag --> L4Verify["✓ Verify Plan<br>Completeness"]
     
@@ -90,7 +93,18 @@ read_file({
 })
 ```
 
-### Step 3: LOAD COMPLEXITY-SPECIFIC PLANNING REFERENCES
+### Step 3: CHECK FOR EXISTING IMPLEMENTATION PLAN
+If `implementation-plan.md` already exists, load it to preserve continuity with prior planning work. If the read fails because
+the file has not been created yet, note that Step 5 will create it.
+
+```
+read_file({
+  target_file: "implementation-plan.md",
+  should_read_entire_file: true
+})
+```
+
+### Step 4: LOAD COMPLEXITY-SPECIFIC PLANNING REFERENCES
 Based on complexity level determined from tasks.md, load one of:
 
 #### For Level 2:
@@ -127,6 +141,20 @@ read_file({
 })
 ```
 
+### Step 5: CREATE OR UPDATE IMPLEMENTATION PLAN DOCUMENT
+Populate `implementation-plan.md` with a structured plan that captures the full set of implementation details. Reuse and update
+existing sections when refining the plan so downstream modes always receive the latest version.
+
+```
+write_file({
+  target_file: "implementation-plan.md",
+  content: "# Implementation Plan\n\n## Task Overview\n- Task Name: [Copy from tasks.md]\n- Complexity Level: [2/3/4]\n- Status: Planning in progress\n\n## Goals\n- [Goal 1]\n- [Goal 2]\n\n## Key Decisions\n- Technology Stack: [Summarize selections]\n- Constraints: [List constraints]\n\n## Work Breakdown\n1. [Step One]\n   - [Detailed subtask]\n2. [Step Two]\n   - [Detailed subtask]\n\n## Dependencies & Risks\n- Dependency: [Describe]\n- Risk: [Describe with mitigation]\n\n## Creative Phase Flags\n- [Component] → Requires CREATIVE mode exploration\n\n## Testing & Validation\n- Planned Tests: [List]\n- Acceptance Criteria: [List]\n",
+  write_mode: "overwrite"
+})
+```
+
+Keep iterating on this document until it reflects the final implementation path. Ensure the `write_file` payload contains the fully updated plan (replace the template placeholders with real content) so no prior details are lost. Summaries pushed back into `tasks.md` should always reference and align with the canonical details in `implementation-plan.md`.
+
 ## PLANNING APPROACH
 
 Create a detailed implementation plan based on the complexity level determined during initialization. Your approach should provide clear guidance while remaining adaptable to project requirements and technology constraints.
@@ -143,6 +171,7 @@ graph TD
     Doc --> IS["🔄 Implementation steps"]
     Doc --> PC["⚠️ Potential challenges"]
     Doc --> TS["✅ Testing strategy"]
+    Doc --> IP["🗂️ Link to implementation-plan.md"]
     
     style L2 fill:#4dbb5f,stroke:#36873f,color:white
     style Doc fill:#80bfff,stroke:#4da6ff,color:black
@@ -168,6 +197,7 @@ graph TD
     Doc --> DP["🔄 Dependencies"]
     Doc --> CM["⚠️ Challenges & mitigations"]
     Doc --> CP["🎨 Creative phase components"]
+    Doc --> IP["🗂️ Link to implementation-plan.md"]
     
     style L34 fill:#ffa64d,stroke:#cc7a30,color:white
     style Doc fill:#80bfff,stroke:#4da6ff,color:black
@@ -211,8 +241,9 @@ graph TD
     V --> C["Components requiring creative phases identified?"]
     V --> S["Implementation steps clearly defined?"]
     V --> D["Dependencies and challenges documented?"]
-    
-    P & C & S & D --> Decision{"All Verified?"}
+    V --> IPlan["implementation-plan.md synced with tasks.md?"]
+
+    P & C & S & D & IPlan --> Decision{"All Verified?"}
     Decision -->|"Yes"| Complete["Ready for next mode"]
     Decision -->|"No"| Fix["Complete missing items"]
     
@@ -222,4 +253,4 @@ graph TD
     style Fix fill:#ff5555,stroke:#cc0000,color:white
 ```
 
-Before completing the planning phase, verify that all requirements are addressed in the plan, components requiring creative phases are identified, implementation steps are clearly defined, and dependencies and challenges are documented. Update tasks.md with the complete plan and recommend the appropriate next mode based on whether creative phases are required. 
+Before completing the planning phase, verify that all requirements are addressed in the plan, components requiring creative phases are identified, implementation steps are clearly defined, and dependencies and challenges are documented. Confirm that `implementation-plan.md` reflects the same decisions summarized in `tasks.md`, then update `tasks.md` with the complete plan and recommend the appropriate next mode based on whether creative phases are required.
