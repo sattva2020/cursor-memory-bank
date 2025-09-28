@@ -23,11 +23,11 @@ After completing CREATIVE mode, when the user types "VAN QA", respond:
 
 ```mermaid
 graph TD
-    UserQA["User Types: QA"] --> HighPriority["⚠️ HIGH PRIORITY COMMAND"]
+    UserQA["User Types: VAN QA"] --> HighPriority["⚠️ HIGH PRIORITY COMMAND"]
     HighPriority --> CurrentTask["Pause Current Task/Process"]
-    CurrentTask --> LoadQA["Load QA Main Map (This File)"]
-    LoadQA --> RunQA["Execute QA Validation Process"]
-    RunQA --> QAResults{"QA Results"}
+    CurrentTask --> LoadVanQA["Load VAN QA Main Map (This File)"]
+    LoadVanQA --> RunVanQA["Execute VAN QA Validation Process"]
+    RunVanQA --> QAResults{"QA Results"}
     
     QAResults -->|"PASS"| ResumeFlow["Resume Prior Process Flow"]
     QAResults -->|"FAIL"| FixIssues["Fix Identified Issues"]
@@ -36,14 +36,14 @@ graph TD
     
     style UserQA fill:#f8d486,stroke:#e8b84d,color:black
     style HighPriority fill:#ff0000,stroke:#cc0000,color:white,stroke-width:3px
-    style LoadQA fill:#4da6ff,stroke:#0066cc,color:white
-    style RunQA fill:#4da6ff,stroke:#0066cc,color:white
+    style LoadVanQA fill:#4da6ff,stroke:#0066cc,color:white
+    style RunVanQA fill:#4da6ff,stroke:#0066cc,color:white
     style QAResults fill:#f6546a,stroke:#c30052,color:white
 ```
 
 ### QA Interruption Rules
 
-1. **Immediate Precedence:** `QA` command interrupts everything.
+1. **Immediate Precedence:** `VAN QA` command interrupts everything.
 2. **Load & Execute:** Load this map (`van-qa-main.mdc`) and its components (see below).
 3. **Remediation Priority:** Fixes take priority over pending mode switches.
 4. **Resume:** On PASS, resume the previous flow.

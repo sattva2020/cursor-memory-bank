@@ -191,7 +191,7 @@ For additional help on setting up custom modes in Cursor, refer to the [official
 
 ### QA Functionality
 
-QA is not a separate custom mode but rather a set of validation functions that can be called from any mode. You can invoke QA capabilities by typing "QA" in any mode when you need to perform technical validation. This approach provides flexibility to conduct verification at any point in the development process.
+QA is not a separate custom mode but rather a set of validation functions that can be called from any mode. You can invoke QA capabilities by typing "VAN QA" in any mode when you need to perform technical validation. This approach provides flexibility to conduct verification at any point in the development process while keeping the command consistent with the VAN initialization workflow.
 
 ## Basic Usage
 
@@ -204,7 +204,7 @@ QA is not a separate custom mode but rather a set of validation functions that c
    - **Level 1 tasks**: May proceed directly to IMPLEMENT after VAN
    - **Level 2 tasks**: Simplified workflow (VAN → PLAN → IMPLEMENT → REFLECT)
    - **Level 3-4 tasks**: Full workflow (VAN → PLAN → CREATIVE → IMPLEMENT → REFLECT → ARCHIVE)
-   - **At any point**: Type "QA" to perform technical validation
+   - **At any point**: Type "VAN QA" to perform technical validation
 
 
 <img src="assets/chat_van.png" height="50"/> <img src="assets/chat_plan.png" height="50" style="display: inline-block;"/> <img src="assets/chat_implement.png" height="50" style="display: inline-block;"/> <img src="assets/chat_creative.png" height="50" style="display: inline-block;"/> <img src="assets/chat_implement.png" height="50" style="display: inline-block;"/> <img src="assets/chat_reflect.png" height="50" style="display: inline-block;"/> <img src="assets/chat_archive.png" height="50" style="display: inline-block;"/>
@@ -217,7 +217,7 @@ QA is not a separate custom mode but rather a set of validation functions that c
    IMPLEMENT - Systematically build planned components
    REFLECT - Review and document lessons learned
    ARCHIVE - Create comprehensive documentation
-   QA - Validate technical implementation (can be called from any mode)
+   VAN QA - Validate technical implementation (can be called from any mode)
    ```
 
 4. **Starting to work with your project**:
