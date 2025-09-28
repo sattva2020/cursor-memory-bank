@@ -126,6 +126,27 @@ After extracting it from the ZIP file, follow the steps below.
 
 Note: other documents are not necessary for memory bank operation, they are explanatory documents. You can copy them to a folder like `memory_bank_documents`.
 
+### Step 1.5: Initialize Memory Bank Templates
+
+The repository now includes reusable templates in [`templates/`](templates/) that match the required structures defined in `.cursor/rules`. Copy them into your working project's `memory-bank/` directory before you begin planning:
+
+```bash
+mkdir -p memory-bank/creative memory-bank/reflection
+cp templates/tasks.md memory-bank/tasks.md
+cp templates/activeContext.md memory-bank/activeContext.md
+cp templates/progress.md memory-bank/progress.md
+cp templates/creative-template.md memory-bank/creative/creative-template.md
+cp templates/reflect-template.md memory-bank/reflection/reflect-template.md
+```
+
+Each template provides the baseline sections that the rules expect:
+
+- **`tasks.md`** – Contains the planning scaffold with description, complexity, technology stack, validation checklist, status tracker, implementation plan, creative phase flags, dependencies, and mitigation notes drawn from the PLAN mode requirements.
+- **`activeContext.md`** – Keeps the current focus synchronized with `tasks.md` and includes status snapshots, recent changes, next steps, blockers, and transition checklist items that align with VAN/PLAN mode verification.
+- **`progress.md`** – Captures implementation progress with absolute paths, key changes, testing evidence, and verification checklist items mandated by IMPLEMENT mode.
+- **`creative-template.md`** – Implements the optimized creative phase structure (problem, options, analysis table, decision, implementation notes, and verification checks) for documenting design decisions.
+- **`reflect-template.md`** – Provides the reflection framework (summary, what went well, challenges, lessons, improvements, next steps, and completion checklist) required before transitioning to ARCHIVE mode.
+
 ### Step 2: Setting Up Custom Modes in Cursor
 
 **This is the most critical and challenging part of the setup.** You'll need to manually create six custom modes in Cursor and copy the instruction content from the provided files:
