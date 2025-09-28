@@ -110,6 +110,29 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 
 - **AI Model**: Claude 4 Sonnet or Claude 4 Opus is recommended for best results, especially for CREATIVE mode's "Think" tool methodology.
 
+### Step 0: Bootstrap the Memory Bank files
+
+Before activating any custom modes, create the working Memory Bank documents for your project. Run the bootstrap script from the repository root and point it to the directory where you want the files to live (for example, your project's `.cursor/memory_bank/` folder):
+
+```
+python tools/bootstrap_memory_bank.py --dest /path/to/your/project/memory_bank
+```
+
+The script creates four files if they do not exist:
+
+- `tasks.md`
+- `progress.md`
+- `activeContext.md`
+- `projectbrief.md`
+
+To confirm they are ready before switching modes, list the directory or open the files directly:
+
+```
+ls /path/to/your/project/memory_bank
+```
+
+If you need to regenerate the templates, rerun the command with `--force` to overwrite existing files.
+
 ### Step 1: Get the Files
 
 Simply clone this repository into your project directory:
