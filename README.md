@@ -110,6 +110,29 @@ For a detailed explanation of how Memory Bank implements these principles, see t
 
 - **AI Model**: Claude 4 Sonnet or Claude 4 Opus is recommended for best results, especially for CREATIVE mode's "Think" tool methodology.
 
+### Step 0: Bootstrap the Memory Bank files
+
+Before activating any custom modes, create the working Memory Bank documents for your project. Run the bootstrap script from the repository root and point it to the directory where you want the files to live (for example, your project's `.cursor/memory_bank/` folder):
+
+```
+python tools/bootstrap_memory_bank.py --dest /path/to/your/project/memory_bank
+```
+
+The script creates four files if they do not exist:
+
+- `tasks.md`
+- `progress.md`
+- `activeContext.md`
+- `projectbrief.md`
+
+To confirm they are ready before switching modes, list the directory or open the files directly:
+
+```
+ls /path/to/your/project/memory_bank
+```
+
+If you need to regenerate the templates, rerun the command with `--force` to overwrite existing files.
+
 ### Step 1: Get the Files
 
 Simply clone this repository into your project directory:
@@ -126,9 +149,31 @@ After extracting it from the ZIP file, follow the steps below.
 
 Note: other documents are not necessary for memory bank operation, they are explanatory documents. You can copy them to a folder like `memory_bank_documents`.
 
+### Step 1.5: Initialize Memory Bank Templates
+
+The repository now includes reusable templates in [`templates/`](templates/) that match the required structures defined in `.cursor/rules`. Copy them into your working project's `memory-bank/` directory before you begin planning:
+
+```bash
+mkdir -p memory-bank/creative memory-bank/reflection
+cp templates/tasks.md memory-bank/tasks.md
+cp templates/activeContext.md memory-bank/activeContext.md
+cp templates/progress.md memory-bank/progress.md
+cp templates/creative-template.md memory-bank/creative/creative-template.md
+cp templates/reflect-template.md memory-bank/reflection/reflect-template.md
+```
+
+Each template provides the baseline sections that the rules expect:
+
+- **`tasks.md`** – Contains the planning scaffold with description, complexity, technology stack, validation checklist, status tracker, implementation plan, creative phase flags, dependencies, and mitigation notes drawn from the PLAN mode requirements.
+- **`activeContext.md`** – Keeps the current focus synchronized with `tasks.md` and includes status snapshots, recent changes, next steps, blockers, and transition checklist items that align with VAN/PLAN mode verification.
+- **`progress.md`** – Captures implementation progress with absolute paths, key changes, testing evidence, and verification checklist items mandated by IMPLEMENT mode.
+- **`creative-template.md`** – Implements the optimized creative phase structure (problem, options, analysis table, decision, implementation notes, and verification checks) for documenting design decisions.
+- **`reflect-template.md`** – Provides the reflection framework (summary, what went well, challenges, lessons, improvements, next steps, and completion checklist) required before transitioning to ARCHIVE mode.
+
 ### Step 2: Setting Up Custom Modes in Cursor
 
 **Skip the manual copy/paste.** Generate an importable configuration and let Cursor create every mode for you.
+
 
 1. From the repository root, run:
    ```bash
@@ -137,6 +182,7 @@ Note: other documents are not necessary for memory bank operation, they are expl
    This command collects every Markdown instruction from `custom_modes/` and packages the correct emojis, names, tool selections, and source paths into a Cursor-compatible bundle.
 2. In Cursor, open **Settings → Chat → Custom modes** and click **Import custom modes**.
 3. Select the newly generated `cursor_modes/cursor_modes.json` (or a ZIP produced by the same script) and confirm the import. Cursor will add the VAN, PLAN, CREATIVE, IMPLEMENT, and REFLECT/ARCHIVE modes automatically.
+
 
 > REFLECT and ARCHIVE instructions remain combined in a single mode to respect Cursor's limits—an optimization originally contributed by GitHub user @joshmac007.
 > The repository includes a generated example at `cursor_modes/cursor_modes.json`, but you should re-run the command above whenever the instruction files change so the bundle stays up to date.
@@ -242,6 +288,7 @@ The Memory Bank system is actively being developed and improved. Key points to u
 - [Memory Bank Upgrade Guide](memory_bank_upgrade_guide.md)
 - [CREATIVE Mode and Claude's "Think" Tool](creative_mode_think_tool.md)
 - Mode-specific instruction files in the `custom_modes/` directory
+- Licensed under the [MIT License](LICENSE)
 
 ---
 
