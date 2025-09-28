@@ -252,11 +252,11 @@ QA validation can be called at any point in the process flow, and takes immediat
 
 ```mermaid
 graph TD
-    UserQA["User Types: QA"] --> HighPriority["⚠️ HIGH PRIORITY COMMAND"]
+    UserQA["User Types: VAN QA"] --> HighPriority["⚠️ HIGH PRIORITY COMMAND"]
     HighPriority --> CurrentTask["Pause Current Task/Process"]
-    CurrentTask --> LoadQA["Load QA Mode Map"]
-    LoadQA --> RunQA["Execute QA Validation Process"]
-    RunQA --> QAResults{"QA Results"}
+    CurrentTask --> LoadVanQA["Load VAN QA Mode Map"]
+    LoadVanQA --> RunVanQA["Execute VAN QA Validation Process"]
+    RunVanQA --> QAResults{"QA Results"}
     
     QAResults -->|"PASS"| ResumeFlow["Resume Prior Process Flow"]
     QAResults -->|"FAIL"| FixIssues["Fix Identified Issues"]
@@ -265,19 +265,19 @@ graph TD
     
     style UserQA fill:#f8d486,stroke:#e8b84d,color:black
     style HighPriority fill:#ff0000,stroke:#cc0000,color:white,stroke-width:3px
-    style LoadQA fill:#4da6ff,stroke:#0066cc,color:white
-    style RunQA fill:#4da6ff,stroke:#0066cc,color:white
+    style LoadVanQA fill:#4da6ff,stroke:#0066cc,color:white
+    style RunVanQA fill:#4da6ff,stroke:#0066cc,color:white
     style QAResults fill:#f6546a,stroke:#c30052,color:white
 ```
 
 ### QA Interruption Rules
 
-When a user types **QA** at any point:
+When a user types **VAN QA** at any point:
 
-1. **The QA command MUST take immediate precedence** over any current operation, including the "FORCE MODE SWITCH" triggered by complexity assessment.
+1. **The VAN QA command MUST take immediate precedence** over any current operation, including the "FORCE MODE SWITCH" triggered by complexity assessment.
 2. The system MUST:
-   - Immediately load the QA mode map
-   - Execute the full QA validation process
+   - Immediately load the VAN QA mode map
+   - Execute the full VAN QA validation process
    - Address any failures before continuing
 3. **Required remediation steps take priority** over any pending mode switches or complexity rules
 4. After QA validation is complete and passes:

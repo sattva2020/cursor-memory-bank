@@ -11,49 +11,49 @@ graph TD
     CommandDetect -->|"PLAN"| Plan["PLAN Mode"]
     CommandDetect -->|"CREATIVE"| Creative["CREATIVE Mode"]
     CommandDetect -->|"IMPLEMENT"| Implement["IMPLEMENT Mode"]
-    CommandDetect -->|"QA"| QA["QA Mode"]
+    CommandDetect -->|"VAN QA"| VanQA["VAN QA Validation"]
     
     %% Immediate Response Node
     VAN --> VanResp["Respond: OK VAN"]
     Plan --> PlanResp["Respond: OK PLAN"]
     Creative --> CreativeResp["Respond: OK CREATIVE"]
     Implement --> ImplResp["Respond: OK IMPLEMENT"]
-    QA --> QAResp["Respond: OK QA"]
+    VanQA --> VanQAResp["Respond: OK VAN QA"]
     
     %% Memory Bank Check
     VanResp --> CheckMB_Van["Check Memory Bank<br>& tasks.md Status"]
     PlanResp --> CheckMB_Plan["Check Memory Bank<br>& tasks.md Status"]
     CreativeResp --> CheckMB_Creative["Check Memory Bank<br>& tasks.md Status"]
     ImplResp --> CheckMB_Impl["Check Memory Bank<br>& tasks.md Status"]
-    QAResp --> CheckMB_QA["Check Memory Bank<br>& tasks.md Status"]
+    VanQAResp --> CheckMB_VanQA["Check Memory Bank<br>& tasks.md Status"]
     
     %% Rule Loading
     CheckMB_Van --> LoadVan["Load Rule:<br>isolation_rules/visual-maps/van_mode_split/van-mode-map"]
     CheckMB_Plan --> LoadPlan["Load Rule:<br>isolation_rules/visual-maps/plan-mode-map"]
     CheckMB_Creative --> LoadCreative["Load Rule:<br>isolation_rules/visual-maps/creative-mode-map"]
     CheckMB_Impl --> LoadImpl["Load Rule:<br>isolation_rules/visual-maps/implement-mode-map"]
-    CheckMB_QA --> LoadQA["Load Rule:<br>isolation_rules/visual-maps/qa-mode-map"]
+    CheckMB_VanQA --> LoadVanQA["Load Rule:<br>isolation_rules/visual-maps/van_mode_split/van-qa-main"]
     
     %% Rule Execution with Memory Bank Updates
     LoadVan --> ExecVan["Execute Process<br>in Rule"]
     LoadPlan --> ExecPlan["Execute Process<br>in Rule"]
     LoadCreative --> ExecCreative["Execute Process<br>in Rule"]
     LoadImpl --> ExecImpl["Execute Process<br>in Rule"]
-    LoadQA --> ExecQA["Execute Process<br>in Rule"]
+    LoadVanQA --> ExecVanQA["Execute Process<br>in Rule"]
     
     %% Memory Bank Continuous Updates
     ExecVan --> UpdateMB_Van["Update Memory Bank<br>& tasks.md"]
     ExecPlan --> UpdateMB_Plan["Update Memory Bank<br>& tasks.md"]
     ExecCreative --> UpdateMB_Creative["Update Memory Bank<br>& tasks.md"]
     ExecImpl --> UpdateMB_Impl["Update Memory Bank<br>& tasks.md"]
-    ExecQA --> UpdateMB_QA["Update Memory Bank<br>& tasks.md"]
+    ExecVanQA --> UpdateMB_VanQA["Update Memory Bank<br>& tasks.md"]
     
     %% Verification with Memory Bank Checks
     UpdateMB_Van --> VerifyVan{"Process<br>Complete?"}
     UpdateMB_Plan --> VerifyPlan{"Process<br>Complete?"}
     UpdateMB_Creative --> VerifyCreative{"Process<br>Complete?"}
     UpdateMB_Impl --> VerifyImpl{"Process<br>Complete?"}
-    UpdateMB_QA --> VerifyQA{"Process<br>Complete?"}
+    UpdateMB_VanQA --> VerifyVanQA{"Process<br>Complete?"}
     
     %% Outcomes
     VerifyVan -->|"Yes"| CompleteVan["VAN Process<br>Complete"]
@@ -76,24 +76,24 @@ graph TD
     RetryImpl --- ReadMB_Impl["Reference Memory Bank<br>for Context"]
     ReadMB_Impl --> ExecImpl
     
-    VerifyQA -->|"Yes"| CompleteQA["QA Process<br>Complete"]
-    VerifyQA -->|"No"| RetryQA["Resume<br>QA Process"]
-    RetryQA --- ReadMB_QA["Reference Memory Bank<br>for Context"]
-    ReadMB_QA --> ExecQA
+    VerifyVanQA -->|"Yes"| CompleteVanQA["VAN QA Validation<br>Complete"]
+    VerifyVanQA -->|"No"| RetryVanQA["Resume<br>VAN QA Validation Process"]
+    RetryVanQA --- ReadMB_VanQA["Reference Memory Bank<br>for Context"]
+    ReadMB_VanQA --> ExecVanQA
     
     %% Final Memory Bank Updates at Completion
     CompleteVan --> FinalMB_Van["Update Memory Bank<br>with Completion Status"]
     CompletePlan --> FinalMB_Plan["Update Memory Bank<br>with Completion Status"]
     CompleteCreative --> FinalMB_Creative["Update Memory Bank<br>with Completion Status"]
     CompleteImpl --> FinalMB_Impl["Update Memory Bank<br>with Completion Status"]
-    CompleteQA --> FinalMB_QA["Update Memory Bank<br>with Completion Status"]
+    CompleteVanQA --> FinalMB_VanQA["Update Memory Bank<br>with Completion Status"]
     
     %% Mode Transitions with Memory Bank Preservation
     FinalMB_Van -->|"Level 1"| TransToImpl["→ IMPLEMENT Mode"]
     FinalMB_Van -->|"Level 2-4"| TransToPlan["→ PLAN Mode"]
     FinalMB_Plan --> TransToCreative["→ CREATIVE Mode"]
     FinalMB_Creative --> TransToImpl2["→ IMPLEMENT Mode"]
-    FinalMB_Impl --> TransToQA["→ QA Mode"]
+    FinalMB_Impl --> TransToVanQA["→ VAN QA Validation"]
     
     %% Memory Bank System
     MemoryBank["MEMORY BANK<br>CENTRAL SYSTEM"] -.-> tasks["tasks.md<br>Source of Truth"]
@@ -101,10 +101,10 @@ graph TD
     MemoryBank -.-> active["activeContext.md<br>Current Focus"]
     MemoryBank -.-> progress["progress.md<br>Implementation Status"]
     
-    CheckMB_Van & CheckMB_Plan & CheckMB_Creative & CheckMB_Impl & CheckMB_QA -.-> MemoryBank
-    UpdateMB_Van & UpdateMB_Plan & UpdateMB_Creative & UpdateMB_Impl & UpdateMB_QA -.-> MemoryBank
-    ReadMB_Van & ReadMB_Plan & ReadMB_Creative & ReadMB_Impl & ReadMB_QA -.-> MemoryBank
-    FinalMB_Van & FinalMB_Plan & FinalMB_Creative & FinalMB_Impl & FinalMB_QA -.-> MemoryBank
+    CheckMB_Van & CheckMB_Plan & CheckMB_Creative & CheckMB_Impl & CheckMB_VanQA -.-> MemoryBank
+    UpdateMB_Van & UpdateMB_Plan & UpdateMB_Creative & UpdateMB_Impl & UpdateMB_VanQA -.-> MemoryBank
+    ReadMB_Van & ReadMB_Plan & ReadMB_Creative & ReadMB_Impl & ReadMB_VanQA -.-> MemoryBank
+    FinalMB_Van & FinalMB_Plan & FinalMB_Creative & FinalMB_Impl & FinalMB_VanQA -.-> MemoryBank
     
     %% Error Handling
     Error["⚠️ ERROR<br>DETECTION"] -->|"Todo App"| BlockCreative["⛔ BLOCK<br>creative-mode-map"]
@@ -118,37 +118,37 @@ graph TD
     style Plan fill:#cfc,stroke:#333,color:black
     style Creative fill:#fcf,stroke:#333,color:black
     style Implement fill:#cff,stroke:#333,color:black
-    style QA fill:#fcc,stroke:#333,color:black
+    style VanQA fill:#fcc,stroke:#333,color:black
     
     style VanResp fill:#d9e6ff,stroke:#99ccff,color:black
     style PlanResp fill:#d9e6ff,stroke:#99ccff,color:black
     style CreativeResp fill:#d9e6ff,stroke:#99ccff,color:black
     style ImplResp fill:#d9e6ff,stroke:#99ccff,color:black
-    style QAResp fill:#d9e6ff,stroke:#99ccff,color:black
+    style VanQAResp fill:#d9e6ff,stroke:#99ccff,color:black
     
     style LoadVan fill:#a3dded,stroke:#4db8db,color:black
     style LoadPlan fill:#a3dded,stroke:#4db8db,color:black
     style LoadCreative fill:#a3dded,stroke:#4db8db,color:black
     style LoadImpl fill:#a3dded,stroke:#4db8db,color:black
-    style LoadQA fill:#a3dded,stroke:#4db8db,color:black
+    style LoadVanQA fill:#a3dded,stroke:#4db8db,color:black
     
     style ExecVan fill:#a3e0ae,stroke:#4dbb5f,color:black
     style ExecPlan fill:#a3e0ae,stroke:#4dbb5f,color:black
     style ExecCreative fill:#a3e0ae,stroke:#4dbb5f,color:black
     style ExecImpl fill:#a3e0ae,stroke:#4dbb5f,color:black
-    style ExecQA fill:#a3e0ae,stroke:#4dbb5f,color:black
+    style ExecVanQA fill:#a3e0ae,stroke:#4dbb5f,color:black
     
     style VerifyVan fill:#e699d9,stroke:#d94dbb,color:black
     style VerifyPlan fill:#e699d9,stroke:#d94dbb,color:black
     style VerifyCreative fill:#e699d9,stroke:#d94dbb,color:black
     style VerifyImpl fill:#e699d9,stroke:#d94dbb,color:black
-    style VerifyQA fill:#e699d9,stroke:#d94dbb,color:black
+    style VerifyVanQA fill:#e699d9,stroke:#d94dbb,color:black
     
     style CompleteVan fill:#8cff8c,stroke:#4dbb5f,color:black
     style CompletePlan fill:#8cff8c,stroke:#4dbb5f,color:black
     style CompleteCreative fill:#8cff8c,stroke:#4dbb5f,color:black
     style CompleteImpl fill:#8cff8c,stroke:#4dbb5f,color:black
-    style CompleteQA fill:#8cff8c,stroke:#4dbb5f,color:black
+    style CompleteVanQA fill:#8cff8c,stroke:#4dbb5f,color:black
     
     style MemoryBank fill:#f9d77e,stroke:#d9b95c,stroke-width:2px,color:black
     style tasks fill:#f9d77e,stroke:#d9b95c,color:black
