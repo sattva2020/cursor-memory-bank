@@ -17,9 +17,9 @@
 | [08-creative-phase-enforcement.md](08-creative-phase-enforcement.md) | Optimization Round 8: Creative Phase Enforcement & Metrics |
 | [09-context-optimization.md](09-context-optimization.md) | Optimization Round 9: Context Optimization Through Visual Navigation |
 | [10-current-system-state.md](10-current-system-state.md) | Current System State |
-| [11-methodological-integration.md](11-methodological-integration.md) | Integration with Claude's Think Methodology |
-| [12-key-lessons.md](12-key-lessons.md) | Key Lessons Learned |
-| [13-future-directions.md](13-future-directions.md) | Future Directions and Scaling Vision |
+| [11-methodological-integration.md](11-methodological-integration.md) | Optimization Round 11: Claude "Think" alignment and isolation principles |
+| [12-key-lessons.md](12-key-lessons.md) | Optimization Round 12: Consolidated methodological and architectural insights |
+| [13-future-directions.md](13-future-directions.md) | Optimization Round 13: Future directions and scaling vision |
 
 ## 📋 OPTIMIZATION JOURNEY OVERVIEW
 
