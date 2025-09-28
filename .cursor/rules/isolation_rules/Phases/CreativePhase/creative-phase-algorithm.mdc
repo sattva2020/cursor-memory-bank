@@ -1,0 +1,203 @@
+---
+description: creative phase algorithm design
+globs: creative-phase-algorithm.mdc
+alwaysApply: false
+---
+
+# CREATIVE PHASE: ALGORITHM DESIGN
+
+> **TL;DR:** Structured guidance for exploring, comparing, and justifying algorithmic approaches with a focus on correctness, complexity, and verifiability.
+
+## ⚙️ ALGORITHM DESIGN WORKFLOW
+
+```mermaid
+graph TD
+    Start["Algorithm<br>Design Start"] --> Req["1. Problem &<br>Requirements Analysis"]
+    Req --> IO["2. Inputs, Outputs,<br>and Constraints"]
+    IO --> Baseline["3. Establish Baseline<br>or Reference Solution"]
+    Baseline --> Options["4. Generate Candidate<br>Algorithms"]
+    Options --> Analysis["5. Analyze Complexity,<br>Trade-offs, and Risks"]
+    Analysis --> Validation["6. Validate Correctness<br>& Edge Cases"]
+    Validation --> Decision["7. Recommend Algorithm<br>& Document"]
+    Decision --> Plan["8. Implementation Plan<br>& Verification Strategy"]
+
+    style Start fill:#4dbb5f,stroke:#36873f,color:white
+    style Req fill:#80e69c,stroke:#4fbf6d,color:black
+    style IO fill:#80e69c,stroke:#4fbf6d,color:black
+    style Baseline fill:#71c2ff,stroke:#3b8aa3,color:white
+    style Options fill:#d971ff,stroke:#a33bc2,color:white
+    style Analysis fill:#ffa64d,stroke:#cc7a30,color:white
+    style Validation fill:#4dbbbb,stroke:#368787,color:white
+    style Decision fill:#ff71c2,stroke:#c23b8a,color:white
+    style Plan fill:#5fd94d,stroke:#3da336,color:white
+```
+
+## 🧮 ALGORITHM DESIGN TEMPLATE
+
+```markdown
+# Algorithm Design Record
+
+## Problem Statement
+- Objective: [What needs to be solved?]
+- Inputs: [Data types, ranges, distributions]
+- Outputs: [Expected results]
+- Constraints: [Time limits, memory limits, determinism requirements]
+- Assumptions: [Assumptions about data or environment]
+
+## Baseline & Benchmarks
+- Baseline approach: [Existing or naive solution]
+- Baseline complexity: [Time, space]
+- Required improvement targets: [Latency, throughput, memory, accuracy]
+
+## Candidate Algorithms
+
+### Option 1: [Name]
+- Core idea: [High-level description]
+- Data structures: [Primary structures used]
+- Time complexity: [Big-O best/avg/worst]
+- Space complexity: [Auxiliary + total]
+- Correctness considerations:
+  - Invariants: [Key invariants to maintain]
+  - Edge cases: [Edge conditions handled]
+- Trade-offs:
+  - Strengths: [Pros]
+  - Limitations: [Cons]
+- Implementation risks: [Risks or unknowns]
+- Verification strategy: [Tests, proofs, simulations]
+
+### Option 2: [Name]
+[Use the same structure as Option 1]
+
+## Comparative Analysis
+| Option | Time | Space | Determinism | Parallelism | Implementation Complexity | Notes |
+|--------|------|-------|-------------|-------------|----------------------------|-------|
+| [Opt1] |      |       |             |             |                            |       |
+| [Opt2] |      |       |             |             |                            |       |
+
+## Recommended Approach
+- Selected option: [Name]
+- Rationale: [Why this option wins]
+- Expected complexity: [Time & space]
+- Resource plan: [Hardware/parallel requirements]
+- Implementation guidance:
+  - Steps / pseudo-code
+  - Critical invariants
+  - Data structure requirements
+  - Failure handling
+
+## Verification Plan
+- Correctness techniques: [Unit tests, proofs, property-based tests]
+- Performance validation: [Benchmarks, load tests, profiling]
+- Edge case coverage: [Specific scenarios]
+- Regression safety: [Automation or monitoring]
+```
+
+## 📊 COMPLEXITY & TRADE-OFF MATRIX
+
+```mermaid
+graph LR
+    subgraph "Complexity Focus"
+        T["Time Complexity"]
+        S["Space Complexity"]
+        P["Parallelizability"]
+    end
+    subgraph "Quality Criteria"
+        C["Correctness & Proofability"]
+        R["Reliability & Fault Tolerance"]
+        M["Maintainability"]
+        E["Extensibility"]
+    end
+    subgraph "Operational Concerns"
+        H["Hardware Constraints"]
+        D["Data Distribution"]
+        L["Latency Targets"]
+        B["Throughput Targets"]
+    end
+
+    T -. influences .-> L
+    T -. influences .-> B
+    S -. influences .-> H
+    P -. influences .-> B
+    C -. supports .-> R
+    M -. enables .-> E
+    D -. constrains .-> T
+    D -. constrains .-> S
+
+    style T fill:#71c2ff,stroke:#3b8aa3,color:white
+    style S fill:#71c2ff,stroke:#3b8aa3,color:white
+    style P fill:#71c2ff,stroke:#3b8aa3,color:white
+    style C fill:#d971ff,stroke:#a33bc2,color:white
+    style R fill:#ffa64d,stroke:#cc7a30,color:white
+    style M fill:#4dbbbb,stroke:#368787,color:white
+    style E fill:#4dbb5f,stroke:#36873f,color:white
+    style H fill:#ff71c2,stroke:#c23b8a,color:white
+    style D fill:#ab87ff,stroke:#7d5bbe,color:white
+    style L fill:#5fd94d,stroke:#3da336,color:white
+    style B fill:#5fd94d,stroke:#3da336,color:white
+```
+
+## 🧠 ANALYSIS CHECKPOINTS
+
+1. **Problem clarity:** Ensure inputs, outputs, and constraints are explicitly enumerated.
+2. **Correctness arguments:** Identify invariants, proofs, or references that ensure correctness.
+3. **Complexity envelope:** Derive best/average/worst time and space; consider amortized or probabilistic analyses where relevant.
+4. **Data characteristics:** Capture distribution, volume, ordering, sparsity, and volatility of the data set.
+5. **Scalability factors:** Evaluate horizontal vs vertical scaling, caching, batching, and streaming impacts.
+6. **Failure modes:** Document retry logic, numerical stability, and tolerance for partial failures.
+7. **Determinism requirements:** Note if reproducibility is mandatory (e.g., ML pipelines vs nondeterministic heuristics).
+8. **Security & privacy:** Flag sensitive data handling, cryptographic requirements, or compliance constraints.
+
+## 🧾 PSEUDO-CODE TEMPLATE
+
+```markdown
+# Pseudo-code for [Algorithm Name]
+
+initialize [state/data structures]
+
+for each [input item or iteration]:
+    update state with [key operations]
+    maintain invariant: [description]
+    handle edge cases: [conditions]
+
+if [post-processing needed]:
+    execute [steps]
+
+return [result]
+```
+
+## ✅ VERIFICATION CHECKLIST
+
+```markdown
+## Correctness Validation
+- [ ] Inputs and outputs validated against requirements
+- [ ] Critical invariants formally stated and maintained
+- [ ] Edge cases enumerated and tested
+- [ ] Error handling and recovery paths defined
+- [ ] Determinism or acceptable nondeterminism documented
+
+## Complexity & Performance
+- [ ] Time complexity derived and justified
+- [ ] Space complexity derived and justified
+- [ ] Performance targets benchmarked against baseline
+- [ ] Scalability considerations documented (batching, streaming, parallelism)
+- [ ] Resource usage fits within hardware constraints
+
+## Implementation Readiness
+- [ ] Pseudo-code or step-by-step plan provided
+- [ ] Required data structures and libraries identified
+- [ ] Verification plan (tests/benchmarks) scoped and scheduled
+- [ ] Monitoring or regression strategy defined
+- [ ] Risks and mitigation strategies recorded
+```
+
+## 🔄 DOCUMENT MANAGEMENT
+
+```mermaid
+graph TD
+    Current["Current Document"] --> Active["Active:<br>- creative-phase-algorithm.mdc"]
+    Current --> Related["Related:<br>- creative-phase-architecture.mdc<br>- creative-phase-uiux.mdc<br>- optimized-creative-template.mdc"]
+
+    style Current fill:#4da6ff,stroke:#0066cc,color:white
+    style Active fill:#4dbb5f,stroke:#36873f,color:white
+    style Related fill:#ffa64d,stroke:#cc7a30,color:white
+```
