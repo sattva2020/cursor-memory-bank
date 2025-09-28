@@ -171,7 +171,7 @@ graph TD
 
 ### Algorithm Design Process
 
-For algorithm components, focus on efficiency, correctness, and maintainability. Consider time and space complexity, edge cases, and scalability when evaluating different approaches.
+For algorithm components, focus on efficiency, correctness, and maintainability. Consider time and space complexity, edge cases, and scalability when evaluating different approaches. Use `.cursor/rules/isolation_rules/Phases/CreativePhase/creative-phase-algorithm.mdc` for the complete workflow, templates, and verification checklists.
 
 ```mermaid
 graph TD
