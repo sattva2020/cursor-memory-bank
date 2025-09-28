@@ -206,6 +206,8 @@ QA is not a separate custom mode but rather a set of validation functions that c
    - **Level 3-4 tasks**: Full workflow (VAN → PLAN → CREATIVE → IMPLEMENT → REFLECT → ARCHIVE)
    - **At any point**: Type "QA" to perform technical validation
 
+   > 💡 **Plan File Requirement**: When you enter PLAN mode, generate or update `implementation-plan.md`. CREATIVE and IMPLEMENT modes assume this file exists and will load it for guidance, so create a blank version if this is your first planning pass.
+
 
 <img src="assets/chat_van.png" height="50"/> <img src="assets/chat_plan.png" height="50" style="display: inline-block;"/> <img src="assets/chat_implement.png" height="50" style="display: inline-block;"/> <img src="assets/chat_creative.png" height="50" style="display: inline-block;"/> <img src="assets/chat_implement.png" height="50" style="display: inline-block;"/> <img src="assets/chat_reflect.png" height="50" style="display: inline-block;"/> <img src="assets/chat_archive.png" height="50" style="display: inline-block;"/>
 
@@ -231,13 +233,15 @@ graph LR
     subgraph "Memory Bank Files"
         Tasks["tasks.md<br>Source of Truth"]
         Active["activeContext.md<br>Current Focus"]
+        PlanDoc["implementation-plan.md<br>Canonical Plan"]
         Progress["progress.md<br>Implementation Status"]
         Creative["creative-*.md<br>Design Decisions"]
         Reflect["reflect-*.md<br>Review Documents"]
     end
-    
+
     style Tasks fill:#f9d77e,stroke:#d9b95c,stroke-width:3px,color:black
     style Active fill:#a8d5ff,stroke:#88b5e0,color:black
+    style PlanDoc fill:#ffe4b5,stroke:#e6b577,color:black
     style Progress fill:#c5e8b7,stroke:#a5c897,color:black
     style Creative fill:#f4b8c4,stroke:#d498a4,color:black
     style Reflect fill:#b3e6cc,stroke:#66c999,color:black
@@ -245,6 +249,7 @@ graph LR
 
 - **tasks.md**: Central source of truth for task tracking
 - **activeContext.md**: Maintains focus of current development phase
+- **implementation-plan.md**: Authoritative implementation plan generated in PLAN mode and consumed by CREATIVE/IMPLEMENT modes
 - **progress.md**: Tracks implementation status
 - **creative-*.md**: Design decision documents generated during CREATIVE mode
 - **reflect-*.md**: Review documents created during REFLECT mode
