@@ -128,66 +128,20 @@ Note: other documents are not necessary for memory bank operation, they are expl
 
 ### Step 2: Setting Up Custom Modes in Cursor
 
-**This is the most critical and challenging part of the setup.** You'll need to manually create six custom modes in Cursor and copy the instruction content from the provided files:
+**Skip the manual copy/paste.** Generate an importable configuration and let Cursor create every mode for you.
 
-#### How to Add a Custom Mode in Cursor
+1. From the repository root, run:
+   ```bash
+   python tools/generate_cursor_modes.py --output cursor_modes/cursor_modes.json
+   ```
+   This command collects every Markdown instruction from `custom_modes/` and packages the correct emojis, names, tool selections, and source paths into a Cursor-compatible bundle.
+2. In Cursor, open **Settings → Chat → Custom modes** and click **Import custom modes**.
+3. Select the newly generated `cursor_modes/cursor_modes.json` (or a ZIP produced by the same script) and confirm the import. Cursor will add the VAN, PLAN, CREATIVE, IMPLEMENT, and REFLECT/ARCHIVE modes automatically.
 
-1. Open Cursor and click on the mode selector in the chat panel
-2. Select "Add custom mode"
-<img src="assets/add_custom_mode.png" alt="Add Custom Mode"/>
+> REFLECT and ARCHIVE instructions remain combined in a single mode to respect Cursor's limits—an optimization originally contributed by GitHub user @joshmac007.
+> The repository includes a generated example at `cursor_modes/cursor_modes.json`, but you should re-run the command above whenever the instruction files change so the bundle stays up to date.
 
-3. In the configuration screen:
-   - Enter the mode name (you can include emoji icons like 🔍, 📋, 🎨, ⚒️ by copy-pasting them at the beginning of the name)
-   - Select an icon from Cursor's limited predefined options
-   - Add a shortcut (optional)
-   - Check the required tools
-   - Click on **Advanced options**
-   - In the empty text box that appears at the bottom, paste the custom instruction content from the corresponding file
-
-#### Mode Configuration
-
-For each mode, configure as follows (If MCPs are showing, you can keep them on, they probably won't work):
-
-1. **VAN MODE** (Initialization)
-   - **Name**: 🔍 VAN
-   - **Tools**: Enable "Codebase Search", "Read File", "Terminal", "List Directory", "Fetch Rules"
-   - **Advanced options**: Paste from `custom_modes/van_instructions.md`
-
-
-<img src="assets/van_mode_1.png" height="300" style="display: inline-block;"/> <img src="assets/van_mode_2.png" height="300" style="display: inline-block;"/>
-
-2. **PLAN MODE** (Task Planning)
-   - **Name**: 📋 PLAN
-   - **Tools**: Enable "Codebase Search", "Read File", "Terminal", "List Directory"
-   - **Advanced options**: Paste from `custom_modes/plan_instructions.md`
-
-<img src="assets/plan_mode_1.png" height="300"/> <img src="assets/plan_mode_2.png" height="300" style="display: inline-block;"/>
-
-3. **CREATIVE MODE** (Design Decisions)
-   - **Name**: 🎨 CREATIVE
-   - **Tools**: Enable "Codebase Search", "Read File", "Terminal", "List Directory", "Edit File", "Fetch Rules"
-   - **Advanced options**: Paste from `custom_modes/creative_instructions.md`
-
-<img src="assets/creative_mode_1.png" height="300"/> <img src="assets/creative_mode_2.png" height="300" style="display: inline-block;"/>
-
-4. **IMPLEMENT MODE** (Code Implementation)
-   - **Name**: ⚒️ IMPLEMENT
-   - **Tools**: Enable all tools
-   - **Advanced options**: Paste from `custom_modes/implement_instructions.md`
-
-<img src="assets/implement_mode_1.png" height="300"/> <img src="assets/implement_mode_2.png" height="300" style="display: inline-block;"/>
-
-5. **REFLECT & ARHIVE MODE** (Review)
-   - **Name**: 🔍 REFLECT or ARCHIVE
-   - **Tools**: Enable "Codebase Search", "Read File", "Terminal", "List Directory"
-   - **Advanced options**: Paste from `custom_modes/reflect_archive_instructions.md`
-
-<img src="assets/reflect_mode_1.png" height="300"/> <img src="assets/reflect_mode_2.png" height="300" style="display: inline-block;"/>
-   
-
-> **Note**: REFLECT and ARCHIVE instructions are combined in a single file and mode to optimize for Cursor's character and custom mode limits  while maintaining functionality. Thanks to GitHub user @joshmac007 for implementing this optimization.
-
-For additional help on setting up custom modes in Cursor, refer to the [official Cursor documentation on custom modes](https://docs.cursor.com/chat/custom-modes).
+For additional help on importing custom modes in Cursor, refer to the [official Cursor documentation on custom modes](https://docs.cursor.com/chat/custom-modes).
 
 ### QA Functionality
 
