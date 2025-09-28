@@ -64,6 +64,8 @@ This Level 3 project provided an ideal test case for evaluating the Memory Bank 
 
 **Observable difference**: Despite not formally switching to QA mode, the validation was structured and thorough.
 
+For a complete catalog of QA commands and checkpoints that support this hybrid approach, refer to the [QA Mode Playbook](../docs/qa_mode.md).
+
 ## Analysis of Architecture Effectiveness
 
 ### Strengths Observed

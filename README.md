@@ -193,6 +193,14 @@ For additional help on setting up custom modes in Cursor, refer to the [official
 
 QA is not a separate custom mode but rather a set of validation functions that can be called from any mode. You can invoke QA capabilities by typing "QA" in any mode when you need to perform technical validation. This approach provides flexibility to conduct verification at any point in the development process.
 
+See the [QA Mode Playbook](docs/qa_mode.md) for detailed command guidance, example scenarios, and links to the underlying rule maps that power these checks.
+
+**Available QA checks at a glance:**
+
+- Universal Memory Bank verification to confirm `projectbrief.md`, `activeContext.md`, `tasks.md`, and `progress.md` remain synchronized
+- Task tracking validation that ensures `tasks.md` stays the source of truth for open and completed work
+- Phase-aware checks (VAN, PLAN, CREATIVE, IMPLEMENT) that verify milestones before you resume the active workflow
+
 ## Basic Usage
 
 1. **Start with VAN Mode**:
